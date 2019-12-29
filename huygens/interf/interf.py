@@ -18,6 +18,13 @@ def c_vector(dtype,size):
     raise ValueError('`size` must be a non-negative integer')
 
 def c_matrix(dtype,nrow,ncol):
+
+  try:
+    if _ct._SimpleCData not in dtype.__mro__:
+      raise TypeError('`dtype` must be a ctypes data type.')
+  except AttributeError:
+    raise TypeError('`dtype` must be a ctypes data type.')
+  
   tmp=_c_2d_tmp(dtype,nrow)
   act=_c_2d(dtype,nrow,ncol)
   for itr in range(nrow):
