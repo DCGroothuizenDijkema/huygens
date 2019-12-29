@@ -47,6 +47,51 @@ def c_vector(dtype,size):
     raise ValueError('`size` must be a non-negative integer')
 
 def c_matrix(dtype,nrow,ncol):
+  '''
+  Produce an object which can be passed to a library function as a pointer to a pointer to an object.
+  For example, the objects returned by this function can be used if a function takes a parameter of type `int **` or `double **`.
+
+  This function returns two objects, `tmp` and `act`. `tmp` is to be passed to the library function. Once the function call has completed,
+  `tmp` can be safely deleted. `act` can then be used as the result of the library function's manipulations. It can be converted to a list of
+  lists or a numpy.ndarray.
+
+  Parameters
+  ----------
+  dtype : _ctypes.PyCSimpleType
+    The data type of the matrix to be constructed.
+  nrow,ncol : int
+    The number of rows and columns in the matrix.
+    Both must be non-negative.
+
+  Returns
+  -------
+  tmp :  __main__.LP_<dtype>_Array_<nrow>
+    `nrow` pointers to objects of type `dtype`.
+    `tmp` is for passing to the library function, and can be deleted after the call.
+  act :  __main__.<dtype>_Array_<ncol>_Array_<nrow>
+    `nrow`-by-`ncol` array of objects of type `dtype`.
+    `act` is for using the data once the library function has finished executing.
+
+  Raises
+  ------
+  TypeError
+    if `nrow` or `ncol` are not ints or `dtype` is ctype's data type.
+  ValueError
+    if `nrow` or `ncol` are not a non-negative ints.
+
+  Examples
+  --------
+  >>> import numpy as np
+  >>> imoprt ctypes as ct
+  >>> from huygens.interf import c_matrix
+
+  >>> tmp,act=c_matrix(ct.c_int,5,3)
+  >>> library_function(tmp)
+  >>> del tmp
+  >>> act=np.ctypeslib.as_array(act)
+  >>> print(act)
+
+  '''
 
   # check dtype is a valid ctype's c type
   try:
@@ -85,9 +130,9 @@ def _c_2d(dtype,nrow,ncol):
   Raises
   ------
   TypeError
-    if `nrow` or `ncol` is not an int.
+    if `nrow` or `ncol` are not ints.
   ValueError
-    if `nrow` or `ncol` is not a non-negative int.
+    if `nrow` or `ncol` are not a non-negative ints.
 
   '''
   try:
