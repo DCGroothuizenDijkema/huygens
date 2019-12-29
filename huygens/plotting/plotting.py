@@ -102,7 +102,6 @@ def _setup_simulation_plot(x_lim=None,y_lim=None,y_axis_ticks=None,title='',x_la
     The Axis of the fig
 
   '''
-  
   fig,ax=plt.subplots(figsize=fig_size)
   ax.set_xscale(scale)
   ax.grid(False,'both','x')
