@@ -13,7 +13,7 @@ setuptools.setup(
   name='huygens',
   license='MIT',
   description='huygens is my personal Python library of commonly used functions.',
-  version='0.1.0',
+  version='0.2.0',
   long_description=open('README.md').read(),
   url='https://github.com/DCGroothuizenDijkema/huygens',
   packages=setuptools.find_packages(),
