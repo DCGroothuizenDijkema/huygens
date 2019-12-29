@@ -24,7 +24,7 @@ def c_matrix(dtype,nrow,ncol):
       raise TypeError('`dtype` must be a ctypes data type.')
   except AttributeError:
     raise TypeError('`dtype` must be a ctypes data type.')
-  
+
   tmp=_c_2d_tmp(dtype,nrow)
   act=_c_2d(dtype,nrow,ncol)
   for itr in range(nrow):
@@ -33,7 +33,19 @@ def c_matrix(dtype,nrow,ncol):
   return tmp,act
 
 def _c_2d(dtype,nrow,ncol):
-  return ((dtype*ncol)*nrow)()
+
+  try:
+    return ((dtype*ncol)*nrow)()
+  except TypeError:
+    raise TypeError('`nrow` and `ncol` must be a non-negative integer.')
+  except ValueError:
+    raise ValueError('`nrow` and `ncol` must be a non-negative integer')
 
 def _c_2d_tmp(dtype,nrow):
-  return (ct.POINTER(dtype)*nrow)()
+
+  try:
+    return (ct.POINTER(dtype)*nrow)()
+  except TypeError:
+    raise TypeError('`nrow` and `ncol` must be a non-negative integer.')
+  except ValueError:
+    raise ValueError('`nrow` and `ncol` must be a non-negative integer')
