@@ -21,10 +21,9 @@ setuptools.setup(
   install_requires=[
     'numpy>=1.18.0',
     'matplotlib>=3.1.2',
-    'seaborn>=0.9.0'
+    'seaborn>=0.9.0',
   ],
   classifiers=[
-    'Development Status :: 3 - Alpha',
     'License :: OSI Approved :: MIT License',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3.8',
