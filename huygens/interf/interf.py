@@ -3,14 +3,38 @@ import ctypes as ct
 import _ctypes as _ct
 
 def c_vector(dtype,size):
+  '''
+  Produce an object which can be passed to a library function as a pointer to an object.
+  For example, the object returned by this function can be used if a function takes a parameter of type `int *` or `double *`.
 
+  Parameters
+  ----------
+  dtype : _ctypes.PyCSimpleType
+    The data type of the vector to be constructed.
+  size : int
+    The length of the vector.
+    Must be non-negative.
+
+  Returns
+  -------
+  vec : __main__.<dtype>_Array_<size>
+    An array of size dtypes
+
+  Raises
+  ------
+  TypeError
+    if `size` is not an int or `dtype` is ctype's data type.
+  ValueError
+    if `size` is not a non-negative int.
+
+  '''
   # check dtype is a valid ctype's c type
   try:
     if _ct._SimpleCData not in dtype.__mro__:
-      raise TypeError('`dtype` must be a ctypes data type.')
+      raise TypeError('`dtype` must be a ctype\'s data type.')
   # dtype does not have attr __mro__
   except AttributeError:
-    raise TypeError('`dtype` must be a ctypes data type.')
+    raise TypeError('`dtype` must be a ctype\'s data type.')
 
   try:
     # an array of size dtypes
@@ -27,10 +51,10 @@ def c_matrix(dtype,nrow,ncol):
   # check dtype is a valid ctype's c type
   try:
     if _ct._SimpleCData not in dtype.__mro__:
-      raise TypeError('`dtype` must be a ctypes data type.')
+      raise TypeError('`dtype` must be a ctype\'s data type.')
   # dtype does not have attr __mro__
   except AttributeError:
-    raise TypeError('`dtype` must be a ctypes data type.')
+    raise TypeError('`dtype` must be a ctype\'s data type.')
 
   tmp=_c_2d_tmp(dtype,nrow)
   act=_c_2d(dtype,nrow,ncol)
