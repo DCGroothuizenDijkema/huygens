@@ -42,7 +42,30 @@ def c_matrix(dtype,nrow,ncol):
   return tmp,act
 
 def _c_2d(dtype,nrow,ncol):
+  '''
+  Produce a 2d array of objects of a given type.
 
+  Parameters
+  ----------
+  dtype : _ctypes.PyCSimpleType
+    The data type of the matrix to be constructed.
+  nrow,ncol : int
+    The number of rows and columns in the matrix.
+    Both must be non-negative.
+
+  Returns
+  -------
+  act :  __main__.<dtype>_Array_<ncol>_Array_<nrow>
+    `nrow`-by-`ncol` array of objects of type `dtype`.
+
+  Raises
+  ------
+  TypeError
+    if `nrow` or `ncol` is not an int.
+  ValueError
+    if `nrow` or `ncol` is not a non-negative int.
+
+  '''
   try:
     # an array of nrow arrays of ncol dtypes
     return ((dtype*ncol)*nrow)()
@@ -54,7 +77,30 @@ def _c_2d(dtype,nrow,ncol):
     raise ValueError('`nrow` and `ncol` must be a non-negative integer')
 
 def _c_2d_tmp(dtype,nrow):
+  '''
+  Produce an array of pointers to objects of a given type.
 
+  Parameters
+  ----------
+  dtype : _ctypes.PyCSimpleType
+    The data type of the matrix to be constructed.
+  nrow : int
+    The number of rows in the matrix.
+    Must be non-negative.
+
+  Returns
+  -------
+  tmp :  __main__.LP_<dtype>_Array_<nrow>
+    `nrow` pointers to objects of type `dtype`.
+
+  Raises
+  ------
+  TypeError
+    if `nrow` is not an int.
+  ValueError
+    if `nrow` is not a non-negative int.
+
+  '''
   try:
     # an array of nrow pointers to dtypes
     return (ct.POINTER(dtype)*nrow)()
