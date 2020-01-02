@@ -9,5 +9,11 @@ To install this package, simply clone the repository, and then execute the follo
 the repository:
 
 ```shell
+python setup.py install
+```
+
+or
+
+```shell
 pip install .
 ```
