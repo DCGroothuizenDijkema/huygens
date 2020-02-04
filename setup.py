@@ -9,7 +9,7 @@ import setuptools
 
 major=0
 minor=2
-micro=1
+micro=2
 
 version='{}.{}.{}'.format(major,minor,micro)
 
