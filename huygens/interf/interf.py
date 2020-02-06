@@ -12,14 +12,13 @@ def c_pointer(dtype,obj):
   ----------
   dtype : _ctypes.PyCSimpleType
     The data type of the vector to be constructed.
-  size : int
-    The length of the vector.
-    Must be non-negative.
+  obj : object
+    The object to point to
 
   Returns
   -------
-  vec : __main__.<dtype>_Array_<size>
-    An array of size dtypes
+  ptr : LP_<dtype>
+    A pointer to obj
 
   Raises
   ------
@@ -38,7 +37,7 @@ def c_pointer(dtype,obj):
     raise TypeError('`dtype` must be a ctype\'s data type.')
   return ct.pointer(dtype(obj))
 
-def c_vector(dtype,size):
+def c_vector(dtype,size,data=None):
   '''
   Produce an object which can be passed to a library function as a pointer to an object.
   For example, the object returned by this function can be used if a function takes a parameter of type `int *` or `double *`, and these
@@ -56,7 +55,7 @@ def c_vector(dtype,size):
 
   Returns
   -------
-  vec : __main__.<dtype>_Array_<size>
+  vec : <dtype>_Array_<size>
     An array of size dtypes
 
   Raises
@@ -105,10 +104,10 @@ def c_matrix(dtype,nrow,ncol):
 
   Returns
   -------
-  tmp :  __main__.LP_<dtype>_Array_<nrow>
+  tmp :  LP_<dtype>_Array_<nrow>
     `nrow` pointers to objects of type `dtype`.
     `tmp` is for passing to the library function, and can be deleted after the call.
-  act :  __main__.<dtype>_Array_<ncol>_Array_<nrow>
+  act :  <dtype>_Array_<ncol>_Array_<nrow>
     `nrow`-by-`ncol` array of objects of type `dtype`.
     `act` is for using the data once the library function has finished executing.
 
@@ -164,7 +163,7 @@ def _c_2d(dtype,nrow,ncol):
 
   Returns
   -------
-  act :  __main__.<dtype>_Array_<ncol>_Array_<nrow>
+  act :  <dtype>_Array_<ncol>_Array_<nrow>
     `nrow`-by-`ncol` array of objects of type `dtype`.
 
   Raises
@@ -199,7 +198,7 @@ def _c_2d_tmp(dtype,nrow):
 
   Returns
   -------
-  tmp :  __main__.LP_<dtype>_Array_<nrow>
+  tmp :  LP_<dtype>_Array_<nrow>
     `nrow` pointers to objects of type `dtype`.
 
   Raises
