@@ -52,6 +52,8 @@ def c_vector(dtype,size,data=None):
   size : int
     The length of the vector.
     Must be non-negative.
+  data : array-like (n,), optional
+    Data to populate the array with
 
   Returns
   -------
@@ -75,8 +77,12 @@ def c_vector(dtype,size,data=None):
     raise TypeError('`dtype` must be a ctype\'s data type.')
 
   try:
-    # an array of size dtypes
-    return (dtype*size)()
+    if data is not None:
+      # an array populated with the inputted data
+      return (dtype*size)(*data)
+    else:
+      # an array of size dtypes
+      return (dtype*size)()
   # size is not an int
   except TypeError:
     raise TypeError('`size` must be a non-negative integer.')
