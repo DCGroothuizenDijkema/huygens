@@ -32,7 +32,7 @@ def simulation_plot(data=None,x_axis=None,hline=None,ax=None,fig=None,x_lim=None
     These limits do not have to equal the smallest and largest value in x_axis.
   y_lim : 2-tuple of floats, optional
     The top and bottom limit of the y-axis of the plot.
-  y_axis_ticks : array_like(k,)
+  y_axis_ticks : array_like (k,)
     Locations of ticks along the y-axis.
   title : string, optional
     The title to appear on the plot.
