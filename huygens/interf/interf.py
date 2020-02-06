@@ -76,6 +76,9 @@ def c_vector(dtype,size,data=None):
   except AttributeError:
     raise TypeError('`dtype` must be a ctype\'s data type.')
 
+  if data is not None and len(data)!=size:
+    raise TypeError('`data` must have length `size`.')
+
   try:
     if data is not None:
       # an array populated with the inputted data
@@ -83,12 +86,20 @@ def c_vector(dtype,size,data=None):
     else:
       # an array of size dtypes
       return (dtype*size)()
-  # size is not an int
+  # size is not an int or data is not of the write type
   except TypeError:
-    raise TypeError('`size` must be a non-negative integer.')
+    if data is not None:
+      raise TypeError('`size` must be a non-negative integer and `data` must be a one-dimensional vector of length `size` and type \
+        `dtype`.')
+    else:
+      raise TypeError('`size` must be a non-negative integer.')
   # size is negative
   except ValueError:
-    raise ValueError('`size` must be a non-negative integer')
+    if data is not None:
+      raise TypeError('`size` must be a non-negative integer and `data` must be a one-dimensional vector of length `size` and type \
+        `dtype`.')
+    else:
+      raise TypeError('`size` must be a non-negative integer.')
 
 def c_matrix(dtype,nrow,ncol):
   '''
