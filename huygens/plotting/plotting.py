@@ -157,7 +157,7 @@ def _setup_simulation_plot(x_lim=None,y_lim=None,y_axis_ticks=None,title='',x_la
   fig : matplotlib.figure.Figure
     A blank Figure
   ax : matplotlib.axes.Axis
-    The Axis of the fig
+    The Axis of `fig`
 
   '''
   fig,ax=plt.subplots(figsize=fig_size)
